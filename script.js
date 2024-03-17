@@ -18,15 +18,18 @@ const bands = [
             'The Word Alive'
         ];
 
-        function sortBands(bands) {
-            return bands.sort((a, b) => a.localeCompare(b));
-        }
-
-        const sortedBands = sortBands(bands);
-
-        const bandList = document.getElementById("band");
-        sortedBands.forEach(band => {
-            const listItem = document.createElement("li");
-            listItem.textContent = band;
-            bandList.appendChild(listItem);
-        });
+        const ignoredWords = ["a", "an", "the"];
+            return bands.sort((a, b) => {
+                const firstWordA = a.split(" ")[0].toLowerCase();
+                const firstWordB = b.split(" ")[0].toLowerCase();
+                if (ignoredWords.includes(firstWordA) && ignoredWords.includes(firstWordB)) {
+                    return 0;
+                } else if (ignoredWords.includes(firstWordA)) {
+                    return 1;
+                } else if (ignoredWords.includes(firstWordB)) {
+                    return -1;
+                } else {
+                    return a.localeCompare(b);
+                }
+            });
+}
